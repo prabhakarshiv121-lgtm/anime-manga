@@ -3,6 +3,7 @@ import { manga, mangaChapters, mangaPages } from "@/lib/schema";
 import { eq, and } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getOrTranslateHinglish } from "@/lib/translator";
 
 interface PageProps {
   params: {
@@ -49,16 +50,32 @@ export default async function MangaReaderPage({ params }: PageProps) {
 
   const currentChapter = chapterData[0];
 
-  // 3. Fetch Pages for this Chapter
-  const pages = await db
+  // 3. Fetch Pages
+  const rawPages = await db
     .select()
     .from(mangaPages)
     .where(eq(mangaPages.chapterId, currentChapter.id))
     .orderBy(mangaPages.pageNumber);
 
+  // 4. Dynamic Hinglish Translation Processing
+  const pages = await Promise.all(
+    rawPages.map(async (page) => {
+      const hinglishText = await getOrTranslateHinglish(
+        page.id,
+        page.originalText || "",
+        page.hinglishText
+      );
+
+      return {
+        ...page,
+        hinglishText,
+      };
+    })
+  );
+
   return (
     <main className="min-h-screen bg-slate-950 text-white flex flex-col items-center py-6 px-2">
-      {/* Header Controls */}
+      {/* Top Header */}
       <header className="w-full max-w-2xl bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-slate-800 sticky top-4 z-50 flex justify-between items-center mb-6 shadow-lg">
         <div>
           <Link
@@ -90,27 +107,38 @@ export default async function MangaReaderPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Hinglish Badge */}
-      <div className="mb-4 bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs px-3 py-1 rounded-full font-medium">
-        🇮🇳 Hinglish Translation
+      {/* Auto Hinglish Badge */}
+      <div className="mb-4 bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs px-3.5 py-1.5 rounded-full font-medium flex items-center gap-1.5 shadow-sm">
+        <span>🇮🇳</span> Auto-Hinglish System Active
       </div>
 
-      {/* Reader Container (Vertical Scrolling Panels) */}
-      <div className="w-full max-w-2xl flex flex-col gap-0.5 bg-black rounded-lg overflow-hidden shadow-2xl border border-slate-800">
+      {/* Pages Container */}
+      <div className="w-full max-w-2xl flex flex-col gap-4 bg-slate-900/40 p-2 rounded-xl border border-slate-800 shadow-2xl">
         {pages.length > 0 ? (
           pages.map((page) => (
-            <div key={page.id} className="relative w-full">
+            <div
+              key={page.id}
+              className="relative w-full bg-black rounded-lg overflow-hidden border border-slate-800/80"
+            >
               <img
                 src={page.imageUrl}
                 alt={`Page ${page.pageNumber}`}
                 className="w-full h-auto object-contain block"
                 loading="lazy"
               />
+
+              {/* Dynamic Hinglish Dialogue Card */}
+              {page.hinglishText && (
+                <div className="p-3 bg-slate-900/95 border-t border-slate-800 text-pink-300 text-xs sm:text-sm font-medium">
+                  <span className="text-slate-400 font-bold mr-1">💬 Hinglish:</span>
+                  {page.hinglishText}
+                </div>
+              )}
             </div>
           ))
         ) : (
           <div className="p-12 text-center text-slate-400">
-            Iss chapter ke Hinglish pages abhi upload nahi hue hain.
+            Iss chapter ke pages jaldi hi update ho jayenge.
           </div>
         )}
       </div>
@@ -142,5 +170,4 @@ export default async function MangaReaderPage({ params }: PageProps) {
       </footer>
     </main>
   );
-    }
-
+}
