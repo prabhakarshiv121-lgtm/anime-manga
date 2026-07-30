@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import Script from 'next/script';
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,6 +11,22 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const container = document.getElementById('adsterra-container');
+    if (container && !container.hasChildNodes()) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = '//pl30600336.effectivecpmnetwork.com/942480106cde0452106b9f331b62f7dc/invoke.js';
+      script.async = true;
+
+      const adBox = document.createElement('div');
+      adBox.id = 'container-942480106cde0452106b9f331b62f7dc';
+
+      container.appendChild(script);
+      container.appendChild(adBox);
+    }
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f0f1a]/95 backdrop-blur-md border-b border-white/5">
@@ -81,14 +96,8 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Adsterra Native Banner Ad */}
-        <div style={{ textAlign: 'center', margin: '10px 0' }}>
-          <Script
-            src="//pl30600336.effectivecpmnetwork.com/942480106cde0452106b9f331b62f7dc/invoke.js"
-            strategy="afterInteractive"
-          />
-          <div id="container-942480106cde0452106b9f331b62f7dc" />
-        </div>
+        {/* Ad Container */}
+        <div id="adsterra-container" style={{ textAlign: 'center', margin: '10px 0' }} />
       </div>
     </nav>
   );
