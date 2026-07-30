@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --color-anime-bg: #0f0f1a;
+  --color-anime-card: #1a1a2e;
+  --color-anime-card-hover: #252545;
+  --color-anime-purple: #7c3aed;
+  --color-anime-pink: #ec4899;
+  --color-anime-blue: #3b82f6;
+}
+
+body {
+  background-color: #0f0f1a;
+  color: #e2e8f0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
