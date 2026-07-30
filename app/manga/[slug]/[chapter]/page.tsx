@@ -1,120 +1,56 @@
-import React from 'react';
+import Link from 'next/link';
 
-interface Props {
-  params: Promise<{
-    slug: string;
-    chapter: string;
-  }>;
-}
-
-export default async function MangaReaderPage({ params }: Props) {
+export default async function MangaReaderPage({ params }: { params: { slug: string; chapter: string } }) {
   const { slug, chapter } = await params;
-  const formattedSlug = slug.replace(/-/g, ' ').toUpperCase();
+  const formattedTitle = slug.toUpperCase().replace(/-/g, ' ');
+
+  // Comic style ke liye sample pages
+  const comicPages = [
+    "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1541562232579-512a21360020?w=800&auto=format&fit=crop&q=60"
+  ];
 
   return (
-    <div style={{ backgroundColor: '#0f172a', color: '#ffffff', minHeight: '100vh', padding: '16px', fontFamily: 'sans-serif' }}>
+    <div className="min-h-screen bg-[#0f0f1a] text-white p-4 max-w-3xl mx-auto flex flex-col items-center">
       
-      {/* Script to Bypass DNS & AdBlockers */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            // Anti-AdBlock & DNS Bypass Notice Detector
-            window.addEventListener('DOMContentLoaded', () => {
-              setTimeout(() => {
-                const adElem = document.getElementById('ad-container');
-                if (!adElem || adElem.offsetHeight === 0) {
-                  const notice = document.getElementById('adblock-notice');
-                  if (notice) notice.style.display = 'block';
-                }
-              }, 2000);
-            });
-          `,
-        }}
-      />
+      {/* Top Header */}
+      <div className="w-full flex justify-between items-center mb-4 bg-[#1a1a2e] p-3 rounded-lg border border-gray-800">
+        <Link href="/manga" className="text-purple-400 text-sm hover:underline">← Back to List</Link>
+        <h1 className="text-lg font-bold">{formattedTitle} : Ch. {chapter}</h1>
+        <span className="bg-green-600 text-xs px-2 py-1 rounded text-white font-medium">Hinglish</span>
+      </div>
 
-      {/* Header */}
-      <header style={{ maxWidth: '800px', margin: '0 auto 20px auto', borderBottom: '1px solid #334155', paddingBottom: '12px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: '#c084fc', margin: '0 0 6px 0' }}>
-          {formattedSlug}
-        </h1>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <span style={{ color: '#94a3b8', fontSize: '15px' }}>Chapter {chapter}</span>
-          <span style={{ backgroundColor: '#15803d', color: '#dcfce7', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>
-            Hinglish Mode Active
-          </span>
-        </div>
-      </header>
+      {/* Ad Space Top */}
+      <div className="w-full bg-[#1a1a2e] border border-dashed border-purple-500/40 p-3 text-center text-xs text-gray-400 rounded-lg mb-4">
+        💰 High-CPM Ad Space (Adsterra Ready)
+      </div>
 
-      {/* Main Container */}
-      <main style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        
-        {/* Anti-DNS / AdBlock Alert Message (If AdBlocker is Active) */}
-        <div
-          id="adblock-notice"
-          style={{
-            display: 'none',
-            backgroundColor: '#991b1b',
-            color: '#fef2f2',
-            padding: '12px',
-            borderRadius: '8px',
-            textAlign: 'center',
-            fontSize: '13px',
-            fontWeight: 'bold',
-          }}
-        >
-          ⚠️ Private DNS ya AdBlocker detected! Kripya DNS / AdBlocker Off karein taaki chapters fast load ho sakein.
-        </div>
+      {/* Comic Pages Stack */}
+      <div className="w-full flex flex-col gap-2">
+        {comicPages.map((imgUrl, index) => (
+          <div key={index} className="w-full bg-black rounded overflow-hidden shadow-2xl border border-gray-900">
+            <img 
+              src={imgUrl} 
+              alt={`Page ${index + 1}`} 
+              className="w-full h-auto object-contain mx-auto"
+              loading="lazy"
+            />
+            <div className="text-right text-[10px] text-gray-500 p-1 pr-2">Page {index + 1} of {comicPages.length}</div>
+          </div>
+        ))}
+      </div>
 
-        {/* Dynamic Ad Placement Container */}
-        <div
-          id="ad-container"
-          style={{
-            backgroundColor: '#1e293b',
-            border: '1px dashed #38bdf8',
-            borderRadius: '8px',
-            padding: '12px',
-            textAlign: 'center',
-            color: '#38bdf8',
-            fontSize: '13px',
-            minHeight: '90px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <span>💰 High-CPM Anti-Block Ads Space (Adsterra Ready)</span>
-        </div>
+      {/* Chapter Navigation Buttons */}
+      <div className="w-full flex justify-between mt-6 gap-4">
+        <button className="flex-1 bg-gray-800 hover:bg-gray-700 py-3 rounded-lg font-semibold text-sm transition">
+          Previous Chapter
+        </button>
+        <button className="flex-1 bg-purple-600 hover:bg-purple-500 py-3 rounded-lg font-semibold text-sm transition">
+          Next Chapter →
+        </button>
+      </div>
 
-        {/* Reader Area */}
-        <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '20px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '16px', color: '#e2e8f0', marginBottom: '10px' }}>
-            📖 Hinglish Manga Reader
-          </h2>
-          <p style={{ color: '#94a3b8', fontSize: '13px' }}>
-            Reading Chapter {chapter} of {formattedSlug}. High-speed server loaded.
-          </p>
-        </div>
-
-        {/* Bottom Banner Ad Placement */}
-        <div
-          style={{
-            backgroundColor: '#1e293b',
-            border: '1px dashed #a855f7',
-            borderRadius: '8px',
-            padding: '12px',
-            textAlign: 'center',
-            color: '#c084fc',
-            fontSize: '13px',
-            minHeight: '90px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <span>🚀 Direct Link / Native Adsterra Slot</span>
-        </div>
-
-      </main>
     </div>
   );
 }
