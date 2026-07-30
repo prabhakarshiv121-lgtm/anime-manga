@@ -1,8 +1,6 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import Link from 'next/link';
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -20,7 +18,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
               AM
             </div>
             <span className="text-xl font-bold">
@@ -38,8 +36,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   pathname === link.href
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                    ? 'bg-purple-500/20 text-purple-400'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {link.label}
@@ -72,8 +70,8 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                   pathname === link.href
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                    ? 'bg-purple-500/20 text-purple-400'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {link.label}
@@ -81,6 +79,16 @@ export default function Navbar() {
             ))}
           </div>
         )}
+
+        {/* Adsterra Native Banner Ad */}
+        <div style={{ textAlign: 'center', margin: '10px 0' }}>
+          <script
+            async
+            data-cfasync="false"
+            src="//pl30600336.effectivecpmnetwork.com/942480106cde0452106b9f331b62f7dc/invoke.js"
+          />
+          <div id="container-942480106cde0452106b9f331b62f7dc" />
+        </div>
       </div>
     </nav>
   );
