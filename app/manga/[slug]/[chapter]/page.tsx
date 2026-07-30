@@ -2,49 +2,71 @@ import Link from 'next/link';
 
 export default async function MangaReaderPage({ params }: { params: { slug: string; chapter: string } }) {
   const { slug, chapter } = await params;
-  const formattedTitle = slug.toUpperCase().replace(/-/g, ' ');
+  const formattedTitle = slug.toUpperCase().replace(/-/g, ' Highlights');
 
-  const comicPages = [
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=900&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=900&auto=format&fit=crop&q=80"
+  // Real Manga Panels (Jaise screenshot me black & white comic panels hote hain)
+  const mangaPanels = [
+    {
+      img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=900&auto=format&fit=crop&q=80",
+      hinglishText: "Grandfather, aapne taste kiya? Mujhe pura confidence hai ki yeh wali dish best banegi!"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=900&auto=format&fit=crop&q=80",
+      hinglishText: "Hmm... Lagta hai isme thodi aur mehnat ki zaroorat hai. A bit of improvement needed!"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1541562232579-512a21360020?w=900&auto=format&fit=crop&q=80",
+      hinglishText: "Kya?! Abhi bhi aur kaam baaki hai? Main aur try karungi!"
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f0f1a] text-white p-4 max-w-3xl mx-auto flex flex-col items-center">
+    <div className="min-h-screen bg-black text-white p-3 max-w-2xl mx-auto flex flex-col items-center">
       
-      <div className="w-full flex justify-between items-center mb-4 bg-[#1a1a2e] p-3 rounded-lg border border-purple-500/30 shadow-md">
-        <Link href="/manga" className="text-purple-400 text-sm font-semibold hover:underline">← Back to List</Link>
-        <h1 className="text-base font-bold text-white">{formattedTitle} : Ch. {chapter}</h1>
-        <span className="bg-purple-600 text-xs px-2.5 py-1 rounded-full text-white font-medium">Hinglish</span>
+      {/* Top Header */}
+      <div className="w-full flex justify-between items-center mb-3 bg-[#111] p-3 rounded-lg border border-zinc-800">
+        <Link href="/manga" className="text-purple-400 text-xs font-bold hover:underline">← All Manga</Link>
+        <h1 className="text-sm font-extrabold tracking-wider">{formattedTitle} - Ch. {chapter}</h1>
+        <span className="bg-emerald-600 text-[10px] px-2 py-0.5 rounded text-white font-bold">Hinglish Mode</span>
       </div>
 
-      <div className="w-full bg-[#1a1a2e] border border-dashed border-purple-500/50 p-3 text-center text-xs text-purple-300 rounded-lg mb-4">
-        💰 High-CPM Ad Space (Adsterra Ready)
+      {/* Adsterra Ad Space Top */}
+      <div className="w-full bg-[#111] border border-dashed border-zinc-700 p-2 text-center text-[11px] text-zinc-400 rounded mb-3">
+        💰 Adsterra High-CPM Ad Slot
       </div>
 
+      {/* Real Manga Comic Book Style Pages & Dialogues */}
       <div className="w-full flex flex-col gap-4">
-        {comicPages.map((imgUrl, index) => (
-          <div key={index} className="w-full bg-black rounded-lg overflow-hidden shadow-2xl border border-gray-800">
-            <img 
-              src={imgUrl} 
-              alt={`Page ${index + 1}`} 
-              className="w-full h-auto object-contain mx-auto"
-              loading="lazy"
-            />
-            <div className="bg-[#1a1a2e] text-center text-xs text-gray-400 py-1.5 border-t border-gray-900">
-              Page {index + 1} of {comicPages.length}
+        {mangaPanels.map((panel, index) => (
+          <div key={index} className="w-full bg-[#161616] border-2 border-zinc-800 rounded-lg overflow-hidden shadow-2xl p-2">
+            
+            {/* Manga Image Panel */}
+            <div className="w-full bg-black rounded overflow-hidden border border-zinc-900">
+              <img 
+                src={panel.img} 
+                alt={`Manga Panel ${index + 1}`} 
+                className="w-full h-auto object-contain mx-auto filter contrast-125"
+                loading="lazy"
+              />
             </div>
+
+            {/* Hinglish Comic Dialogue Box (Jaise manga me bubbles hote hain) */}
+            <div className="mt-2 bg-zinc-900 border border-zinc-700 p-3 rounded text-zinc-200 text-sm font-medium shadow-inner">
+              <span className="text-purple-400 text-xs block mb-1 font-bold">Panel {index + 1} Dialogue:</span>
+              "{panel.hinglishText}"
+            </div>
+
           </div>
         ))}
       </div>
 
-      <div className="w-full flex justify-between mt-6 gap-4">
-        <button className="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-xl font-semibold text-sm transition shadow">
-          ← Previous
+      {/* Chapter Navigation Buttons */}
+      <div className="w-full flex justify-between mt-6 gap-3">
+        <button className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 py-3 rounded-lg font-bold text-xs transition">
+          ◀ Previous Chapter
         </button>
-        <button className="flex-1 bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-xl font-semibold text-sm transition shadow">
-          Next Chapter →
+        <button className="flex-1 bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-lg font-bold text-xs transition shadow-lg">
+          Next Chapter ▶
         </button>
       </div>
 
