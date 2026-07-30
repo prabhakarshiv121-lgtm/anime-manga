@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import "../globals.css";
-import Navbar from "../Navbar";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AnimeManga - Watch Anime & Read Manga",
@@ -15,10 +14,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#0f0f1a] text-white min-h-screen antialiased">
-        <Navbar />
         <main>{children}</main>
       </body>
     </html>
   );
 }
-
