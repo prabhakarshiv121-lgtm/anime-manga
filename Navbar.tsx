@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Script from 'next/script';
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -82,10 +83,9 @@ export default function Navbar() {
 
         {/* Adsterra Native Banner Ad */}
         <div style={{ textAlign: 'center', margin: '10px 0' }}>
-          <script
-            async
-            data-cfasync="false"
+          <Script
             src="//pl30600336.effectivecpmnetwork.com/942480106cde0452106b9f331b62f7dc/invoke.js"
+            strategy="afterInteractive"
           />
           <div id="container-942480106cde0452106b9f331b62f7dc" />
         </div>
