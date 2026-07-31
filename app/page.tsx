@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 export default function Home() {
   const featuredManga = [
-    { id: 'naruto-ch-1', title: 'Naruto: Chapter 1 (Hinglish)', image: '/images/naruto.jpg', episode: 'Ch 1', type: 'MANGA', subType: 'HINGLISH' },
-    { id: 'naruto-ch-2', title: 'Naruto: Chapter 2 (Hinglish)', image: '/images/naruto.jpg', episode: 'Ch 2', type: 'MANGA', subType: 'HINGLISH' },
+    { id: 'naruto-ch-1', title: 'Naruto: Chapter 1 (Hinglish)', image: '/images/naruto.jpg', episode: 'Ep 1', type: 'TV', subType: 'SUB' },
+    { id: 'naruto-ch-2', title: 'Naruto: Chapter 2 (Hinglish)', image: '/images/naruto.jpg', episode: 'Ep 2', type: 'TV', subType: 'SUB' },
   ];
 
   return (
@@ -15,16 +15,16 @@ export default function Home() {
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Hero Section */}
-        <div className="mb-10 p-6 rounded-2xl bg-gradient-to-r from-[#1e88e5]/20 via-[#141414] to-[#141414] border border-[#2a2a2a]">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+        <div className="bg-p-6 rounded-2xl bg-gradient-to-r from-[#1e88e5]/20 to-[#141414] border border-[#2a2a2a] mb-12">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
             Read Manga in <span className="text-[#1e88e5]">Hinglish!</span>
           </h1>
           <p className="text-[#9e9e9e] text-sm md:text-base max-w-xl mb-6">
             Apne favorite manga aur manhwa padho bilkul aasan aur mazedaar Hinglish bhasha mein.
           </p>
-          <Link 
+          <Link
             href="/hinglish/naruto-ch-1"
-            className="inline-block bg-[#1e88e5] hover:bg-[#1565c0] text-white font-semibold px-6 py-2.5 rounded-xl transition-colors text-sm"
+            className="inline-block bg-[#1e88e5] hover:bg-[#1565c0] text-white font-medium px-6 py-3 rounded-xl transition-colors"
           >
             Start Reading Naruto 🚀
           </Link>
@@ -42,7 +42,7 @@ export default function Home() {
           {featuredManga.map((manga) => (
             <div key={manga.id} className="cursor-pointer">
               <Link href={`/hinglish/${manga.id}`}>
-                <MangaCard 
+                <MangaCard
                   id={manga.id}
                   title={manga.title}
                   image={manga.image}
