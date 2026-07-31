@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import MangaCard from '@/components/MangaCard';
+import SectionHeader from '@/components/SectionHeader';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
@@ -15,7 +16,7 @@ export default function Home() {
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Hero Section */}
-        <div className="bg-p-6 rounded-2xl bg-gradient-to-r from-[#1e88e5]/20 to-[#141414] border border-[#2a2a2a] mb-12">
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-[#1e88e5]/20 to-[#141414] border border-[#2a2a2a] mb-12">
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
             Read Manga in <span className="text-[#1e88e5]">Hinglish!</span>
           </h1>
@@ -31,14 +32,10 @@ export default function Home() {
         </div>
 
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold border-l-4 border-[#1e88e5] pl-3">
-            Trending Chapters
-          </h2>
-        </div>
+        <SectionHeader title="Trending Chapters" href="/manga-list" />
 
         {/* Manga Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
           {featuredManga.map((manga) => (
             <div key={manga.id} className="cursor-pointer">
               <Link href={`/hinglish/${manga.id}`}>
