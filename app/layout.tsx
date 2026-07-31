@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AnimeManga - Watch Anime & Read Manga",
-  description: "Free anime streaming and manga reader app",
+  title: "MangaHindi - Hinglish Manga Reader",
+  description: "Read popular manga and manhwa in Hinglish",
 };
 
 export default function RootLayout({
@@ -13,8 +13,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[#0f0f1a] text-white min-h-screen antialiased">
-        <main>{children}</main>
+      <body className="antialiased min-h-screen bg-[#0a0a0a] text-white">
+        {children}
       </body>
     </html>
   );
