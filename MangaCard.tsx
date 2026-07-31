@@ -6,11 +6,18 @@ interface MangaCardProps {
   title: string;
   image: string;
   episode?: string;
-  type?: 'TV' | 'Movie' | 'OVA';
-  subType?: 'SUB' | 'DUB';
+  type?: string;
+  subType?: string;
 }
 
-export default function MangaCard({ id, title, image, episode = 'Ep 1', type = 'TV', subType = 'SUB' }: MangaCardProps) {
+export default function MangaCard({ 
+  id, 
+  title, 
+  image, 
+  episode = 'Ep 1', 
+  type = 'TV', 
+  subType = 'SUB' 
+}: MangaCardProps) {
   return (
     <Link href={`/manga/${id}`} className="group block">
       <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[#141414] border border-[#2a2a2a]">
@@ -40,7 +47,7 @@ export default function MangaCard({ id, title, image, episode = 'Ep 1', type = '
       </div>
       
       {/* Title */}
-      <h3 className="mt-2.5 text-sm font-medium text-[#e0e0e0] line-clamp-1 group-hover:text-[#1e88e5] transition-colors">
+      <h3 className="mt-2.5 text-sm font-medium text-[#e0e0e0] truncate group-hover:text-[#1e88e5] transition-colors">
         {title}
       </h3>
     </Link>
