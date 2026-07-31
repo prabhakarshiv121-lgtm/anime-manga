@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -18,7 +19,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Nav Links */}
+        {/* Nav Links - Desktop */}
         <div className="hidden md:flex items-center gap-6 text-sm font-medium">
           {['Home', 'Manga List', 'Genres', 'Hinglish', 'Bookmark'].map((item) => (
             <Link
@@ -39,9 +40,9 @@ export default function Navbar() {
               placeholder="Anime/Manga search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg py-2 pl-4 pr-10 text-sm text-white placeholder-[#666] focus:outline-none focus:border-[#1e88e5] transition-colors"
+              className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg py-2 pl-4 pr-20 text-sm text-white placeholder-[#666] focus:outline-none focus:border-[#1e88e5] transition-colors"
             />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#1e88e5] hover:bg-[#1565c0] text-white text-xs px-3 py-1 rounded-md font-medium transition-colors">
+            <button className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#1e88e5] hover:bg-[#1565c0] text-white text-xs px-3 py-1.5 rounded-md font-medium transition-colors">
               Search
             </button>
           </div>
